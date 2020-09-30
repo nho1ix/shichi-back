@@ -3,9 +3,9 @@
 # This config file is meant for settings that affect your whole blog, values
 # which you are expected to set up once and rarely need to edit after that.
 
-email: your-email@domain.com
+email: bloop@gmail.com
 baseurl: /Static-Chat-Blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://nho1ix.github.io/gitpages" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
