@@ -4,7 +4,7 @@
 # which you are expected to set up once and rarely need to edit after that.
 
 email: bloop@gmail.com
-baseurl: /Static-Chat-Blog
+baseurl: /gitpages
 url: "http://nho1ix.github.io/gitpages" # the base hostname & protocol for your site
 
 # Build settings
