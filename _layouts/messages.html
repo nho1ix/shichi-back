@@ -1,0 +1,104 @@
+{% assign contact = site.data.contacts[page.slug] %}
+<section class="window-columns">
+  {% include chat.html %}
+  {% include person.html %}
+</section>
+
+
+<script>
+  
+$(document).ready(function(){
+  $(function(){ 
+    $(".background-frame").scrollTop($(".background-frame")[0].scrollHeight);
+  });
+  // Additional scrolling behaviour after all pics are finally loaded
+  var $elems = $('#message-list').find('img');
+  var elemsCount = $elems.length;
+  var loadedCount = 0;
+  $elems.on('load', function () {
+      loadedCount++;
+      if (loadedCount == elemsCount) {
+        $(".background-frame").scrollTop($(".background-frame")[0].scrollHeight);
+      }
+  });
+  $(function(){
+    var jekyllDate = $("#date-chat").text();
+    var date = jekyllDate.substring(0, 2);
+    var month = jekyllDate.substring(3, 5);
+    var year = jekyllDate.substring(6, 10);
+    var myDate = new Date(year, month - 1, date);
+    var today = new Date();
+    myDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+    if(myDate.getTime() === today.getTime() ) {
+      $(function(){
+        $(".header-info h2 .not-today").remove();
+        $(".header-info .today").css("display", "inline-block");
+        $(".bubble-row .date-lable h1").last().empty().append("heute");
+      });
+    } else {
+      $(function(){
+
+      }); 
+    };
+  });
+  $(function(){
+    var jekyllDate = $(".bubble-row .date-lable h1").last().text();
+    var date = jekyllDate.substring(0, 2);
+    var month = jekyllDate.substring(3, 5);
+    var year = jekyllDate.substring(6, 10);
+    var myDate = new Date(year, month - 1, date);
+    var today = new Date();
+    myDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+    if(myDate.getTime() === today.getTime() ) {
+      $(function(){
+        $(".bubble-row .date-lable h1").last().empty().append("heute");
+      });
+    } else {
+      $(function(){
+
+      }); 
+    };
+  });
+
+  $('.header-icon, .header-info, #menu-information').click(function(){
+    $(".window-columns").addClass("open-person");
+    $(".background-frame").scrollTop($(".background-frame")[0].scrollHeight);
+  });
+  $('.header-close span').click(function(){
+    $(".window-columns").removeClass("open-person");
+  });
+});
+
+$(function(){
+  if($(window).width() >= 500) {
+    $("#messagebox").focus().keypress(function(event) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+          $(this).val("");
+          event.preventDefault();
+        }
+    });
+  } else {
+    $("#messagebox").keypress(function(event) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+          $(this).val("");
+          event.preventDefault();
+        }
+    });
+  }
+});
+
+{% if page.members %}
+  {% for member in page.members %}
+    {% assign participants = site.posts | where: 'slug', member %}
+    {% for participant in participants %}
+      $('#group-member-{{participant.slug}}').click(function(){
+        $("#message-window").load("{{site.baseurl}}/{{participant.slug}}/index.html");
+      });
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+//componentHandler.upgradeAllRegistered();
+</script>
